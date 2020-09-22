@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+
+
+\usepackage{lipsum}
+
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{thmtools}
+
+\theoremstyle{definition}
+%\newtheorem{definition}{Definition}[]
+\declaretheorem[style=definition,name=Definition,qed=$\lrcorner$]{definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+
+\usepackage{mathpazo}
+\usepackage{parskip}
+\usepackage{eulervm}
+
+\usepackage[a4paper, margin=1.2in]{geometry}
+\usepackage{mdframed}
+
+% begin custom commands
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\E}{\operatorname{E}}
+
+
+
+
+\usepackage{mathpazo}
+
+\title{\textsc{\large Lecture Summary}\\Economics and Computation }
+\author{David Zollikofer}
+
+
+\begin{document}
+
+	\maketitle
+	
+\section*{2. Simultaneous Move Games}
+This chapter introduces a formal framework with which we can analyze decision making. 
+
+\begin{remark}[Rationality]
+In the discussion we will always assume the rationality of all involved parties. This means that they will always choose a higher payoff to a lower one. The way actions are mapped to payoffs (called the utility function) is completely individual.
+\end{remark}
+
+\begin{definition}[Preference order]
+	For a set of actions $A = (a_1,\ldots, a_n)$ we require a preference ordering on $A$ to fulfill:
+	\begin{itemize}
+		\item \textit{Completeness:} any two actions $a_1$, $a_2$ we either have $a_1 \succeq a_1$ or $a_1 \preceq a_2$.
+		\item \textit{Transitivity:} if $a_1 \preceq a_2$ and $a_2 \preceq a_3$ then $a_1 \preceq a_3$.
+	\end{itemize}
+	We call $\succeq$ to be weakly better and $\succ$ to be strictly better.
+\end{definition}
+It is important to note that it is unclear how much better an action is than another. For this we need the utility function.
+\begin{definition}[Utility function]
+	A utility function $u:A\to \R$ maps an action $a\in A$ to a payoff of that action. If for a player $a_i \succeq a_j$, then $u(a_i) \geq u(a_j)$ must hold.
+\end{definition}
+
+\begin{definition}[Simultaneous-move games]
+A simultaneous move game is a triple $(N,A,u)$ consisting of 
+\begin{itemize}
+	\item $N = \{1,\ldots,n\}$ is the number of players.
+	\item Each player plays action $a_i \in A_i$ with $A = A_1 \times \ldots \times A_n$. An action profile is a vector $\vec{a} = (a_1,\ldots,a_n)\in A$
+	\item The utility vector $\vec{u} = (u_1,\ldots,u_n)$ consists of the player's utility functions and maps an action profile to a payoff.
+\end{itemize}
+Simultaneous means that I do not know what someone else has decided when I take a decision.
+\end{definition}
+
+\begin{definition}[Pareto dominated]
+	We call an action profile $a\in A$ Pareto dominated by $a'\in A$ if (looking at the utility of both profiles) no player is worse off in $a$ than in $a'$ and at least one player is better of in $a'$ than $a$.
+\end{definition}
+
+\begin{definition}[Pareto optimality]
+	An action profile $a\in A$ is Pareto optimal iff. there is not other action profile that Pareto dominates $a$. This means there is no action profile that makes someone better off without also making someone worse off.
+\end{definition}
+
+Similarly we can also introduce pareto optimality for distributions on action profiles.
+
+\begin{definition}[Dominant-strategy equilibrium]
+	
+\end{definition}
+
+
+\end{document}
