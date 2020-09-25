@@ -9,14 +9,22 @@
 \usepackage{amssymb}
 \usepackage{thmtools}
 
+\newtheorem{theorem}{Theorem}
+
+
 \theoremstyle{definition}
 %\newtheorem{definition}{Definition}[]
 \declaretheorem[style=definition,name=Definition,qed=$\lrcorner$]{definition}
 
+
+
+\declaretheorem[style=definition,name=Example,qed=$\lozenge$]{example}
+
+
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-
+\usepackage{todonotes}
 \usepackage{mathpazo}
 \usepackage{parskip}
 \usepackage{eulervm}
@@ -88,8 +96,89 @@ Simultaneous means that I do not know what someone else has decided when I take 
 Similarly we can also introduce pareto optimality for distributions on action profiles.
 
 \begin{definition}[Dominant-strategy equilibrium]
-	
+	We call an action profile $a^*$ a dominant-strategy equilibrium of a simultaneous move game iff. for any other action any other player could take 
+	$$u_i(a^*_i,a') \geq u_i(j_i,a')$$
+	\todo{finish definition}
 \end{definition}
+
+\begin{definition}[Pure-strategy Nash equilibrium]
+	content...\todo{add}
+\end{definition}
+
+\begin{definition}[Mixed strategy]
+	content...\todo{text}
+\end{definition}
+
+\begin{definition}[Mixed-strategy Nash equilibrium]
+	content... \todo{text}
+\end{definition}
+
+\begin{definition}[Support]
+The support of a mixed-strategy Nash equilibrium is the set of actions that are played with strictly positive probability.
+\end{definition}
+
+
+\begin{theorem}[Existence of mixed-strategy Nash equilibrium]
+	Every finite simultaneous-move game has at least one mixed-strategy Nash equilibrium.
+\end{theorem}
+
+
+\todo{a lot missing here}
+
+\begin{definition}[Zero-sum game]
+	Wel call a game a zero-sum game if the sum of all payoffs for every action profile is 0.
+\end{definition}
+
+\todo{add rest}
+
+
+\section*{5. Peer-to-Peer Systems}
+
+\begin{definition}[Peer-to-Peer System] 
+In a peer-to-peer file sharing system the seperation between servers and clients is removed. Every participant is referred to as a peer. The distributed nature often eliminates a single point of failure while achieving a similar degree of reliability as traditional client server models.
+
+A peer-to-peer system is characterized by 
+\begin{itemize}
+	\item \textit{Protocol:} The protocol defines the actions that are supported and correspond to rules in game theory.
+	\item \textit{Reference client:} A client that implements a default strategy in game theory.
+	\item \textit{Other clients:} Other clients can implement other game theoretical strategies, that conform to the protocol.
+\end{itemize}
+
+When analyzing peer-to-peer networks we are interested in the following metrics:
+
+\begin{itemize}
+	\item \textit{Performance:} e.g. average download speed
+	\item \textit{Incentive Properties:} e.g. sharing content should be incentivized.
+	\item \textit{Fairness:} e.g. my uploads should be proportional to my downloads.
+\end{itemize}
+
+\end{definition}
+
+\begin{example}[Napster]
+A central server contained a mapping from content to providers. To download I file I would query the central server for a peer that contains the file and then download it directly from the peer.
+\end{example}
+
+\begin{example}[Gnutella]
+There are central servers managing a list of peers IP addresses. To find content a peer $P_A$ send a query message which gets passed from peer to peer until a peer $P_B$ has the desired file (or there is a timeout). The file is then downloaded directly from peer $P_B$ to peer $P_A$. The protocol does not keep any statistics on who downloaded from whom and who seeded.
+\end{example}
+
+\begin{remark}[Free Riding]
+The Gnutella protocol has the problem that the incentives are isomorphic to the prisoner's dilemma; in that every peer tries to \textbf{free ride} which is to download but not seed.
+\end{remark}
+
+
+\begin{example}[BitTorrent]
+	
+\begin{itemize}
+	\item \textit{Torrent:} A \texttt{.torrent} file consists of a list of all blocks of which file we would like to download consists as well as their respected hashes to verify their integrity as well as a tracker URL. The tracker is a server which coordinates peers using the same torrent.
+	
+	\item \textit{Swarm:} The set of peers either downloading or uploading the same file. The tracker provides you with a random number of peers that are currently active in the swarm.
+	
+	\item \textit{Seeders:} Peers who have already downloaded the file and are sharing it.
+	
+	\item \textit{Leechers:} Peers who are downloading pieces of the file.
+\end{itemize}
+\end{example}
 
 
 \end{document}
