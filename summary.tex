@@ -281,9 +281,22 @@ We assume $n=2$ bidders and that $s_i(v_i) = \alpha v_i$. For bidder 1 the payof
 There are five main types of multi-round auctions:
 
 \begin{itemize}
-	content...
+	\item \textit{Ascending Clock Auction:} Price starts low and increases as bidders place increasing bids. After not bidding bidders are not allowed to resume bidding. This process is iterated until only one bidder remains.
+	\item \textit{English Auction:} 
+	\todo{difference to ascending clock?}
+	\item \textit{Proxy Auction:} \todo{...}
+	\item \textit{Descending-clock (Dutch) Auction:} The asking price starts high and is lowered until someone takes the offer.
+	\item \textit{Second-price descending-clock Auction:} Like Dutch auction but first person to take the offer is only known to auctoneer. As soon as a second bidder want's to take the offer with bid $b_2$, bidder 1 wins but pays $b_2$.
 \end{itemize}
 
+\begin{example}[Ebay]
+	\todo{...}
+\end{example}
 
+
+
+\begin{definition}[Hard vs. Soft Closing rules]
+A \textit{hard closing rule} means that an auction has a fixed deadline whereas with a \textit{soft closing rule} the closing time would be extended if a bid occurred in the last $x$ minutes.
+\end{definition}
 
 \end{document}
