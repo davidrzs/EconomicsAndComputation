@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 
 
-\usepackage{lipsum}
+
 
 
 \usepackage{amsmath}
@@ -40,12 +40,12 @@
 \newcommand{\X}{\mathcal{X}}
 \newcommand{\W}{\mathcal{W}}
 \newcommand{\Var}{\operatorname{Var}}
-\newcommand{\E}{\operatorname{E}}
+\newcommand{\E}{\mathbb{E}}
 
 
 
 
-\usepackage{mathpazo}
+
 
 \title{\textsc{\large Lecture Summary}\\Economics and Computation }
 \author{David Zollikofer}
@@ -179,6 +179,111 @@ The Gnutella protocol has the problem that the incentives are isomorphic to the 
 	\item \textit{Leechers:} Peers who are downloading pieces of the file.
 \end{itemize}
 \end{example}
+
+
+
+
+
+\section*{6. Auction Design}
+
+\subsection*{Sealed-Bid Auctions}
+
+\begin{definition}[Sealed-Bid Auction]
+We have the set of bidders $N = \{0,\ldots n\}$ and every bidder values an item at $v_i$ In a sealed bid aution every bidder submits a bid $b_i$ which creates a bid profile $\vec{b}  = (b_1,\ldots, b_n)$ where the bidders do not know the bids of the other bidders.
+
+For a given bid profile $\vec{b}$ we have an allocatition rule $x(\vec{b})$ which returns a one-hot vector which encodes which bidder won the auction. Furthermore the payment rule $t(\vec{b})$ is a one-hot vector which contains the payment (bid) by the winning bidder.
+
+We know the following two sealed-bid auctions:
+
+\begin{itemize}
+	\item \textit{First-price sealed-bid auction (FPSB)}: The highest bidding bidder  wins and pays its bid.
+	\item \textit{Second-price sealed-bid auction (SPSB) aka. Vickrey Auction} The highest bidding bidder wins but only pays the bid of the second highest bidder.
+\end{itemize}
+
+
+\end{definition}
+
+\begin{definition}[Values] In auctions we differentiate between the following different values bidders can have: 
+	\begin{itemize}
+		\item \textit{Private value}: A bidder knows her own value (e.g. ebay book auction) and the value doesn't change if she knows the values of other bidders.
+		\item \textit{Interdependent value}: All bidders have different values despite having the same information available, but they might change their value if they learn the value of other bidders (e.g. copper mining rights but different valuations of the rights exist).
+		\item \textit{Common Value}: All bidders may be uncertain about their value but they value the item the same and have the same information; yet they might revise their bids if they learn about the values of others (e.g. art auction).
+	\end{itemize}
+\end{definition}
+
+
+\begin{definition}[Quasi-linear utility]
+	Given bid profile $b$, the utility of bidder $i$ is defined as
+	\begin{align*}
+		u_i(b) &= x_i(b) v_i - t_i(b)
+	\end{align*}
+	where $u_i$ is the utility of bidder $i$, $t_i$ the payment made by bidder $i$, $v_i$ the valuation of the item for bidder $i$ and $x_i$ an indicator variable whether bidder $i$ got the item or not.
+\end{definition}
+
+
+\begin{definition}[Strategy]
+	A strategy maps a value to a bid (e.g. Given I value the shoes 10 CHF how much will I bid). For a value profile $\vec{v} = (v_1,\ldots,v_n)$ for all players we have the strategy profile $\vec{b} = (b_1,\ldots,b_n) = s(\vec{v})$.
+\end{definition}
+
+
+\begin{definition}[Dominant-Strategy Equilibrium (DSE)]
+	\todo{when does it exist?}
+We call $s^* = (s_1^*, \ldots, s_n^*)$ a DSE iff. for all bidders $i$, all values $v_i$, all bids $b_i$ and all other players values $v_{i-}$ and bids $b_{i-}$ we have
+\begin{align*}
+	u_i(s_i^*(v_i),s_{i-}(v_{i-})) &\geq 	u_i(b_i,s_{i-}(v_{i-}))
+\end{align*}
+In words we want that the strategy optimizes every bidders value independent of the bids and values of the other players.
+\end{definition}
+
+
+
+\begin{definition}[Strategy-proof]
+We call an auction strategy-proof if the truthful bidding is a dominant-strategy equilibrium.
+\end{definition}
+
+
+\begin{theorem}
+	Second-price sealed-bid actions are strategy-proof and efficient.
+\end{theorem}
+
+
+
+\begin{definition}[Bayes-Nash Equilibrium]
+	A strategy profile $s^* = (s_1^*,\ldots,s_n^*)$ is a Bayes-Nash equilibrium (BNE) in a sealed bid auction iff. for all bidders $i$, all values $v_i$ and all bids $b_i$ we have
+	\begin{align*}
+\E_{v-i}\left[u_i(s_i^*(v_i),s_{-i}^*(v_{-i}))\right] &\geq \E_{v-i}\left[u_i(b_i,s_{-i}^*(v_{-i}))\right]
+	\end{align*}
+	We have assumed that the bidder's values follow $v_i\sim G_i$ which is a probability distribution function. The $G_i$ are common knowledge to all biders and set up the so called independent private value (IPV). \footnote{if the $G_i$ are indepdendent and identically distributed this is known as the IID private value environment.}
+\end{definition}
+
+
+
+
+\begin{theorem}
+	For bidders with IID values uniformly distributed on $[0,1]$, the Bayes-Nash Equilibrium in the FPSB has strategy
+	\begin{align*}
+		s^*(v_i) = \left(\frac{n-1}{n}\right)v_i
+	\end{align*}
+	This makes the FPSB auction efficient with this equilibrium.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+	\todo{why not of other form?}
+We assume $n=2$ bidders and that $s_i(v_i) = \alpha v_i$. For bidder 1 the payoff is $$(v_1 - b_1) \Pr \left[b_2\leq b_1\right] = (v_1 - b_1 ) \frac{b_1}{\alpha}.$$ Optimizing the expression with respect to $\beta_1$ yields the desired result.
+\end{proof}
+
+\begin{remark}
+	This makes the FPSB auction non strategy-proof.
+\end{remark}
+
+\subsection*{Multi-round Auctions}
+
+There are five main types of multi-round auctions:
+
+\begin{itemize}
+	content...
+\end{itemize}
+
 
 
 \end{document}
